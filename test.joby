@@ -1,0 +1,10 @@
+setPointer name someString
+print getPointer name
+setPointer num1 5
+setPointer num2 3
+setPointer sum add getPointer num1 getPointer num2
+print getPointer sum
+
+
+setPointer sum sub add add add getPointer num1 getPointer num1 getPointer num1 getPointer num1 getPointer num1 
+print getPointer sum
