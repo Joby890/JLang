@@ -6,6 +6,7 @@ import java.util.Map;
 import com.josephbrumaghim.jlang.keywords.Add;
 import com.josephbrumaghim.jlang.keywords.Div;
 import com.josephbrumaghim.jlang.keywords.GetPointer;
+import com.josephbrumaghim.jlang.keywords.If;
 import com.josephbrumaghim.jlang.keywords.Keyword;
 import com.josephbrumaghim.jlang.keywords.Mul;
 import com.josephbrumaghim.jlang.keywords.Print;
@@ -22,6 +23,7 @@ public class Execution {
 		keywords.put("getPointer", new GetPointer());
 		keywords.put("setPointer", new SetPointer());
 		keywords.put("print", new Print());
+		keywords.put("if", new If());
 		
 		//Simple Math
 		keywords.put("add", new Add());
@@ -32,9 +34,18 @@ public class Execution {
 	
 	
 	public Object executeLine(String line) {
+		//Right now only one block per line.
+		String block = "";
+		if(line.contains("[") && line.contains("]")) {
+			int startX = line.indexOf('[');
+			int startY = line.indexOf(']');
+			for(int x = startX + 1; x < startY; x++) {
+				block += line.charAt(x);
+			}
+		}
 		String[] words = line.split(" ");
 		String word = words[0];
-		execute(word, words, new IndexHolder());
+		execute(word, words, new IndexHolder(), block);
 //			if(keywords.containsKey(word)) {
 //				Keyword key = keywords.get(word);
 //				key.load(words[++i]);
@@ -44,18 +55,22 @@ public class Execution {
 		return null;
 	}
 	//"print getPointer name";
-	public Object execute(String current, String[] words, IndexHolder index) {
+	public static Object execute(String current, String[] words, IndexHolder index, String block) {
 		//System.out.println("Executing on " + current + " with " + Arrays.asList(words) + " on " + index.index + " index");
 		if(keywords.containsKey(current)) {
 			Keyword key = keywords.get(current);
 			if(words.length - index.index - key.argsLength > 0) {
 				Object[] args = new Object[key.argsLength];
 				for(int x = 0; x < key.argsLength; x++) {
-					Object o = execute(words[++index.index], words, index);
+					Object o = execute(words[++index.index], words, index, block);
 					args[x] = o;
 				}
+				if(key.block) {
+					key.load(args, block);
+				} else {
+					key.load(args);
+				}
 				
-				key.load(args);
 				return key.execute();
 				
 				
@@ -69,9 +84,6 @@ public class Execution {
 	}
 	
 
-	public class IndexHolder {
-		public int index = 0;
-	}
 	
 }
 

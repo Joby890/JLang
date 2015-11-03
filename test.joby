@@ -8,3 +8,8 @@ print getPointer sum
 
 setPointer sum sub add add add getPointer num1 getPointer num1 getPointer num1 getPointer num1 getPointer num1 
 print getPointer sum
+setPointer name checkIfIfWorks
+setPointer testIf checkIfIfWorks
+if getPointer name getPointer testIf [print getPointer name]
+
+print sub 10 2
