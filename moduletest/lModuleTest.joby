@@ -1,0 +1,8 @@
+setPointer x add 0 0
+setPointer max add 0 10
+module recu
+print getPointer x
+setPointer x add getPointer x 1
+setPointer y shouldNotbeinmain
+if-not getPointer x getPointer max [recu]
+endmodule

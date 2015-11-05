@@ -1,0 +1,4 @@
+print recu
+setPointer test name
+print getPointer test
+print getPointer y

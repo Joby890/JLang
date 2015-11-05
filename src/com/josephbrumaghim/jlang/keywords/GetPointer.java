@@ -6,8 +6,8 @@ public class GetPointer extends Keyword {
 	
 	private String name;
 	
-	public GetPointer() {
-		super(1);
+	public GetPointer(Execution exec) {
+		super(exec, 1);
 	}
 
 	@Override
@@ -17,7 +17,19 @@ public class GetPointer extends Keyword {
 
 	@Override
 	public Object execute() {
-		return Execution.pointers.get(name);
+		return findExecution(name).pointers.get(name);
 	}
 	
+	
+	public Execution findExecution(String name) {
+		Execution current = exec;
+		while(current != null) {
+			if(current.pointers.containsKey(name)) {
+				return current;
+			} else {
+				current = current.prev;
+			}
+		}
+		return exec;
+	}
 }

@@ -1,12 +1,14 @@
 package com.josephbrumaghim.jlang.keywords;
 
+import com.josephbrumaghim.jlang.Execution;
+
 public class Mul extends Keyword {
 	
 	private int num1;
 	private int num2;
 
-	public Mul() {
-		super(2);
+	public Mul(Execution exec) {
+		super(exec, 2);
 	}
 
 	@Override

@@ -1,0 +1,9 @@
+
+setPointer count add 0 0
+setPointer max add 0 10
+ruc
+module ruc
+print getPointer count
+setPointer count add getPointer count 1
+if-not getPointer count getPointer max [ruc]
+endmodule

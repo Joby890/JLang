@@ -1,10 +1,12 @@
 package com.josephbrumaghim.jlang.keywords;
 
+import com.josephbrumaghim.jlang.Execution;
+
 public class Print extends Keyword {
 
 	private Object obj;
-	public Print() {
-		super(1);
+	public Print(Execution exec) {
+		super(exec, 1);
 	}
 
 	@Override

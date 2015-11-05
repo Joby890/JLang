@@ -7,8 +7,8 @@ public class SetPointer extends Keyword {
 	private String pName;
 	private Object val;
 
-	public SetPointer() {
-		super(2);
+	public SetPointer(Execution exec) {
+		super(exec, 2);
 	}
 
 	@Override
@@ -20,8 +20,28 @@ public class SetPointer extends Keyword {
 
 	@Override
 	public Object execute() {
-		Execution.pointers.put(pName, val);
+		findExcecution(pName).pointers.put(pName, val);
 		return val;
+	}
+	/**
+	 * Find execution to for pointer to be set too.
+	 * 
+	 * Looks for pointer up execution chain
+	 * if not found returns current exec;
+	 * @param name
+	 * @return
+	 */
+	public Execution findExcecution(String name) {
+		Execution current = exec;
+		while(current != null) {
+			if(current.pointers.containsKey(name)) {
+				return current;
+			} else {
+				current = current.prev;
+			}
+		}
+		return exec;
+
 	}
 
 }

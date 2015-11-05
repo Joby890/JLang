@@ -11,5 +11,13 @@ print getPointer sum
 setPointer name checkIfIfWorks
 setPointer testIf checkIfIfWorks
 if getPointer name getPointer testIf [print getPointer name]
+print test
+
+module test 
+print a
+endmodule
+
+
+module example if getPointer name getPointer x [] endmodule
 
 print sub 10 2

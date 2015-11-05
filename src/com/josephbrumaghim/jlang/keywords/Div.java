@@ -1,12 +1,14 @@
 package com.josephbrumaghim.jlang.keywords;
 
+import com.josephbrumaghim.jlang.Execution;
+
 public class Div extends Keyword {
 	
 	private int num1;
 	private int num2;
 
-	public Div() {
-		super(2);
+	public Div(Execution exec) {
+		super(exec, 2);
 	}
 
 	@Override

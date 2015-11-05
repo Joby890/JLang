@@ -1,0 +1,22 @@
+setPointer name Joe
+setPointer last Brumaghim
+
+print oneLine
+print test
+test2
+
+module oneLine getPointer name endmodule
+
+print if getPointer name getPointer name [setPointer name nonName]
+
+module test
+setPointer x nonValue
+if getPointer name getPointer name [setPointer x value]
+getPointer x
+endmodule
+
+
+module test2 
+print getPointer last 
+endmodule
+

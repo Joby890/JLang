@@ -3,14 +3,14 @@ package com.josephbrumaghim.jlang.keywords;
 import com.josephbrumaghim.jlang.Execution;
 import com.josephbrumaghim.jlang.IndexHolder;
 
-public class If extends Keyword {
+public class IfNot extends Keyword {
 	
 	private Object o1;
 	private Object o2;
 	private String block2;
 	
 	
-	public If(Execution exec) {
+	public IfNot(Execution exec) {
 		super(exec, 2, true);
 	}
 
@@ -28,16 +28,10 @@ public class If extends Keyword {
 
 	@Override
 	public Object execute() {
-		if(o1 == o2) {
-			String[] words = block2.split(" ");
-			return exec.execute(words[0], words, new IndexHolder(), null);
-		}
 		if(o1 == null && o2 == null) {
-			String[] words = block2.split(" ");
-			return exec.execute(words[0], words, new IndexHolder(), null);
+			return false;
 		}
-		if(o1 == null) {return null;}
-		if(o1.equals(o2)) {
+		if(!o1.equals(o2)) {
 			String[] words = block2.split(" ");
 			return exec.execute(words[0], words, new IndexHolder(), null);
 		}

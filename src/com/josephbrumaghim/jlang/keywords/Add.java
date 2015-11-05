@@ -1,12 +1,14 @@
 package com.josephbrumaghim.jlang.keywords;
 
+import com.josephbrumaghim.jlang.Execution;
+
 public class Add extends Keyword {
 	
 	private int num1;
 	private int num2;
 
-	public Add() {
-		super(2);
+	public Add(Execution exec) {
+		super(exec,2);
 	}
 
 	@Override
