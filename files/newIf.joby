@@ -1,0 +1,16 @@
+setPointer x add 1 0
+setPointer y add 10 0
+setPointer true ThisWORKED
+module ifTest
+
+if getPointer x < getPointer y [print getPointer true]
+if getPointer y > getPointer x [print getPointer true]
+if getPointer x == getPointer x [print getPointer true]
+if getPointer x != getPointer y [print getPointer true]
+if getPointer y >= getPointer x [print getPointer true]
+if getPointer x <= getPointer y [print getPointer true] 
+
+endmodule
+
+print startingTest
+ifTest

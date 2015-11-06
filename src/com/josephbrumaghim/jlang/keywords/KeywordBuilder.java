@@ -25,6 +25,7 @@ public class KeywordBuilder extends Keyword {
 	public Object execute() {
 		Object result = null;
 		Execution newExec = new Execution(exec);
+		
 		for(int x = 0; x < lines.size(); x++) {
 			Object o = newExec.executeLine(lines.get(x));
 			if(lines.size() == 1) {

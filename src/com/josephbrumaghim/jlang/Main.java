@@ -6,7 +6,7 @@ import java.util.List;
 public class Main {
 	
 	private static final boolean DEBUG = true;
-	private static final File dir = new File("./moduletest");
+	private static final File dir = new File("./files");
 	
 	private FileLoader loader;
 	private Execution exec;

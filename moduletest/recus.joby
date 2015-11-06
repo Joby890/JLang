@@ -5,5 +5,5 @@ ruc
 module ruc
 print getPointer count
 setPointer count add getPointer count 1
-if-not getPointer count getPointer max [ruc]
+if getPointer count != getPointer max [ruc]
 endmodule

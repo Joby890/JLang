@@ -8,13 +8,11 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import com.josephbrumaghim.jlang.keywords.Add;
 import com.josephbrumaghim.jlang.keywords.Div;
 import com.josephbrumaghim.jlang.keywords.GetPointer;
 import com.josephbrumaghim.jlang.keywords.If;
-import com.josephbrumaghim.jlang.keywords.IfNot;
 import com.josephbrumaghim.jlang.keywords.Keyword;
 import com.josephbrumaghim.jlang.keywords.KeywordBuilder;
 import com.josephbrumaghim.jlang.keywords.Mul;
@@ -31,12 +29,10 @@ public class Execution {
 	
 	
 	public Execution(Execution prev) {
-		System.out.println("Creating new exceution");
 		keywords.put("getPointer", new GetPointer(this));
 		keywords.put("setPointer", new SetPointer(this));
 		keywords.put("print", new Print(this));
 		keywords.put("if", new If(this));
-		keywords.put("if-not", new IfNot(this));
 		
 		//Simple Math
 		keywords.put("add", new Add(this));
@@ -130,6 +126,7 @@ public class Execution {
 			List<String> module = new ArrayList<>();
 			if(words[0].equals("module")) {
 				String name = words[1];
+				//Get Arguments
 				String temp = "";
 				String[] modified = Arrays.copyOfRange(lines[x].split(" "), 2, lines[x].length());
 				for(String tem : modified) {
