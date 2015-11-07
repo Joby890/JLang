@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Main {
 	
-	private static final boolean DEBUG = true;
+	private static final boolean DEBUG = false;
 	private static final File dir = new File("./files");
 	
 	private FileLoader loader;
@@ -16,7 +16,6 @@ public class Main {
 		loader = new FileLoader();
 		exec = new Execution(null);
 		temp();
-		//exec.executeFile(loader.loadFile("recus"));
 	}
 	
 	public void temp() {

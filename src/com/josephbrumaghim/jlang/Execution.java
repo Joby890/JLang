@@ -76,6 +76,17 @@ public class Execution {
 		return null;
 	}
 	
+	public Map<String, Keyword> getWords() {
+		Map<String, Keyword> keyword = new HashMap<>();
+		Execution current = this;
+		while(current != null) {
+			keyword.putAll(current.keywords);
+			current = current.prev;
+		}
+		
+		return keyword;
+	}
+	
 	public Object execute(String current, String[] words, IndexHolder index, String block) {
 		//System.out.println("Executing on " + current + " with " + Arrays.asList(words) + " on " + index.index + " index");
 		Keyword key = findKeyword(current);
@@ -122,11 +133,29 @@ public class Execution {
 	
 	public void loadModules(String[] lines) {
 		for(int x = 0; x < lines.length; x++) {
+			String line = lines[x];
 			String[] words = lines[x].split(" ");
 			List<String> module = new ArrayList<>();
 			if(words[0].equals("module")) {
 				String name = words[1];
 				//Get Arguments
+				
+				
+				String[] args = new String[0];
+				if(line.contains("[") && line.contains("]")) {
+					String block = "";
+					int startX = line.indexOf('[');
+					int startY = line.indexOf(']');
+					for(int y = startX + 1; y < startY; y++) {
+						block += line.charAt(y);
+					}
+					
+					lines[x] = line.substring(0, startX) + line.substring(startY, line.length() - 1);
+					args = block.split(" ");
+				}
+
+				//System.out.println(block);
+				
 				String temp = "";
 				String[] modified = Arrays.copyOfRange(lines[x].split(" "), 2, lines[x].length());
 				for(String tem : modified) {
@@ -165,7 +194,8 @@ public class Execution {
 					lines[in] = "";
 				}
 				KeywordBuilder kw = new KeywordBuilder(this, 0);
-				System.out.println(module);
+				Main.debug(module);
+				kw.setArguments(args);
 				kw.setLines(module);
 				keywords.put(name, kw);
 			}
