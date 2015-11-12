@@ -34,6 +34,11 @@ public class If extends Keyword {
 
 	@Override
 	public Object execute() {
+		return run(check());
+	}
+	
+	
+	public boolean check() {
 		
 		//All of these must convert numbers
 		if(modifier.equals(">") || modifier.equals("<") || modifier.equals(">=") || modifier.equals("<=") ) {
@@ -42,52 +47,52 @@ public class If extends Keyword {
 			Integer num2 = convertNumber(o2);
 			if(modifier.equals("<")) {
 				if(num1 < num2) {
-					return run(true);
+					return true;
 				} else {
-					return run(false);
+					return false;
 				}
 			} else if(modifier.equals(">")) {
 				if(num1 > num2) {
-					return run(true);
+					return true;
 				} else {
-					return run(false);
+					return false;
 				}
 			} else if(modifier.equals(">=")) {
 				if(num1 >= num2) {
-					return run(true);
+					return true;
 				} else {
-					return run(false);
+					return false;
 				}
 			} else if(modifier.equals("<=")) {
 				if(num1 <= num2) {
-					return run(true);
+					return true;
 				} else {
-					return run(false);
+					return false;
 				}
 			}
 		} else if(modifier.equals("==")) {
 			//Both null case handle and objectId lookup
 			if(o1 == o2) {
-				return run(true);
+				return true;
 			} else if(o1 == null) {
-				return run(false);
+				return false;
 			} else if(o1.equals(o2)) {
-				return run(true);
+				return true;
 			} else {
 				run(false);
 			}
 		} else if(modifier.equals("!=")) {
 			if(o1 == o2) {
-				return run(false);
+				return false;
 			} else if(o1 == null) {
-				return run(false);
+				return true;
 			} else if(!o1.equals(o2)) {
-				return run(true);
+				return false;
 			} else {
-				run(false);
+				return false;
 			}
 		}
-		return null;
+		return false;
 	}
 	
 	public Object run(boolean t) {
@@ -95,9 +100,15 @@ public class If extends Keyword {
 		if(t) {
 			words = truthy.split(" ");
 		} else {
-			words = falsey.split(" ");
+			if(falsey != null) {
+				words = falsey.split(" ");
+			} else {
+				words = new String[0];
+			}
 		}
-		
+		if(words.length == 0) {
+			return null;
+		}
 		return exec.execute(words[0], words, new IndexHolder(), null);
 	}
 	

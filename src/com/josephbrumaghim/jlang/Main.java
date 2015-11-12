@@ -15,14 +15,20 @@ public class Main {
 	public Main() {
 		loader = new FileLoader();
 		exec = new Execution(null);
-		temp();
 	}
 	
-	public void temp() {
-		List<File> files = loader.getJobyFiles(dir);
-		for(File f : files) {
-			exec.executeFile(f);
+	public void run(File dir, File main) {
+		if(dir.isDirectory()) {
+			List<File> files = loader.getJobyFiles(dir);
+			for(File f : files) {
+				exec.executeFile(f);
+			}
 		}
+
+		if(main != null) {
+			exec.executeFile(main);
+		}
+
 	}
 	
 	public static void debug(Object print) {
@@ -33,6 +39,16 @@ public class Main {
 	
 	
 	public static void main(String[] args) {
-		new Main();
+		Main main = new Main();
+		if(args.length == 0) {
+			Main.debug("Running Joby main default directory.");
+			main.run(Main.dir, null);
+		} else if(args.length == 1) {
+			Main.debug("Running Joby main on file " + args[0] + " with default directory");
+			main.run(new File(args[0]), null);	
+		} else {
+			Main.debug("Running Joby main on file: " + args[0] + " adding to execution " + args[1] + ".");
+			main.run(new File(args[1]), new File(args[0]));
+		}
 	}
 }

@@ -12,12 +12,12 @@ endmodule
 
 
 module factorial [n]
-if getPointer n == add 0 1 [add 0 1] [print notZero]
-if getPointer n != add 0 1 [mul getPointer n factorial sub getPointer n 1]
+if getPointer n == num 1 [num 1]
+if getPointer n != num 1 [mul getPointer n factorial sub getPointer n 1]
 endmodule
 
 
 if getPointer x != getPointer y [print truey] [print falsey]
+print factorial 5
 
-setPointer x 5
-print factorial getPointer x
+

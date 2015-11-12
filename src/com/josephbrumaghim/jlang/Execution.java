@@ -15,7 +15,9 @@ import com.josephbrumaghim.jlang.keywords.GetPointer;
 import com.josephbrumaghim.jlang.keywords.If;
 import com.josephbrumaghim.jlang.keywords.Keyword;
 import com.josephbrumaghim.jlang.keywords.KeywordBuilder;
+import com.josephbrumaghim.jlang.keywords.Loop;
 import com.josephbrumaghim.jlang.keywords.Mul;
+import com.josephbrumaghim.jlang.keywords.Num;
 import com.josephbrumaghim.jlang.keywords.Print;
 import com.josephbrumaghim.jlang.keywords.SetPointer;
 import com.josephbrumaghim.jlang.keywords.Sub;
@@ -33,6 +35,8 @@ public class Execution {
 		keywords.put("setPointer", new SetPointer(this));
 		keywords.put("print", new Print(this));
 		keywords.put("if", new If(this));
+		keywords.put("num", new Num(this));
+		keywords.put("loop", new Loop(this));
 		
 		//Simple Math
 		keywords.put("add", new Add(this));
@@ -121,11 +125,11 @@ public class Execution {
 				
 			} else {
 				System.out.println("Error not enough args in command");
+				return null;
 			}
 		} else {
 			return current;
 		}
-		return null;
 	}
 	
 	

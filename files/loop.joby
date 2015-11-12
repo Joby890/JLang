@@ -1,0 +1,10 @@
+module testLoop [q t]
+	loop q < t [setPointer q up getPointer q]
+endmodule
+
+module up [q]
+	print getPointer q
+	add getPointer q 1
+endmodule
+
+testLoop 0 7
