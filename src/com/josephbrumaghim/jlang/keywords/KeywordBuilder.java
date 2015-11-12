@@ -28,7 +28,6 @@ public class KeywordBuilder extends Keyword {
 
 	@Override
 	public Object execute() {
-		System.out.println("Executing");
 		Object result = null;
 		
 		for(int x = 0; x < lines.size(); x++) {

@@ -9,3 +9,15 @@ print getPointer arg2
 print getPointer arg3
 endmodule
 
+
+
+module factorial [n]
+if getPointer n == add 0 1 [add 0 1] [print notZero]
+if getPointer n != add 0 1 [mul getPointer n factorial sub getPointer n 1]
+endmodule
+
+
+if getPointer x != getPointer y [print truey] [print falsey]
+
+setPointer x 5
+print factorial getPointer x

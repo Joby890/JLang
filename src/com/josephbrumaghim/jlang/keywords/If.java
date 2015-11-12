@@ -8,7 +8,8 @@ public class If extends Keyword {
 	private Object o1;
 	private String modifier;
 	private Object o2;
-	private String block2;
+	private String truthy;
+	private String falsey;
 	
 	
 	public If(Execution exec) {
@@ -21,11 +22,14 @@ public class If extends Keyword {
 	}
 	
 	@Override
-	public void load(Object[] args, String block) {
+	public void load(Object[] args, String[] blocks) {
 		o1 = args[0];
 		modifier = (String) args[1];
 		o2 = args[2];
-		this.block2 = block;
+		this.truthy = blocks[0];
+		if(blocks.length > 1) {
+			this.falsey = blocks[1];
+		}
 	}
 
 	@Override
@@ -38,58 +42,62 @@ public class If extends Keyword {
 			Integer num2 = convertNumber(o2);
 			if(modifier.equals("<")) {
 				if(num1 < num2) {
-					return run();
+					return run(true);
+				} else {
+					return run(false);
 				}
 			} else if(modifier.equals(">")) {
 				if(num1 > num2) {
-					return run();
+					return run(true);
+				} else {
+					return run(false);
 				}
 			} else if(modifier.equals(">=")) {
 				if(num1 >= num2) {
-					return run();
+					return run(true);
+				} else {
+					return run(false);
 				}
 			} else if(modifier.equals("<=")) {
 				if(num1 <= num2) {
-					return run();
+					return run(true);
+				} else {
+					return run(false);
 				}
 			}
 		} else if(modifier.equals("==")) {
 			//Both null case handle and objectId lookup
 			if(o1 == o2) {
-				return run();
+				return run(true);
 			} else if(o1 == null) {
-				return null;
+				return run(false);
 			} else if(o1.equals(o2)) {
-				return run();
+				return run(true);
+			} else {
+				run(false);
 			}
 		} else if(modifier.equals("!=")) {
-			if(o1 != o2) {
-				return run();
-			} else if(o1 != null) {
-				return null;
+			if(o1 == o2) {
+				return run(false);
+			} else if(o1 == null) {
+				return run(false);
 			} else if(!o1.equals(o2)) {
-				return run();
+				return run(true);
+			} else {
+				run(false);
 			}
 		}
 		return null;
-//			
-//
-//		
-//		if(o1 == null && o2 == null) {
-//			String[] words = block2.split(" ");
-//			return exec.execute(words[0], words, new IndexHolder(), null);
-//		}
-//		if(o1 == null) {return null;}
-//		if(o1.equals(o2)) {
-//			String[] words = block2.split(" ");
-//			return exec.execute(words[0], words, new IndexHolder(), null);
-//		}
-//		return null;
-//		//return o1.equals(o2);
 	}
 	
-	public Object run() {
-		String[] words = block2.split(" ");
+	public Object run(boolean t) {
+		String[] words;
+		if(t) {
+			words = truthy.split(" ");
+		} else {
+			words = falsey.split(" ");
+		}
+		
 		return exec.execute(words[0], words, new IndexHolder(), null);
 	}
 	

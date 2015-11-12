@@ -48,20 +48,33 @@ public class Execution {
 	
 	public Object executeLine(String line) {
 		//Right now only one block per line.
-		String block = "";
-		if(line.contains("[") && line.contains("]")) {
-			int startX = line.indexOf('[');
-			int startY = line.indexOf(']');
+		List<String> blocks = new ArrayList<>();
+		while(firstChar(line,'[') >= 0 && firstChar(line,']') >= 0) {
+			String block = "";
+			int startX = firstChar(line,'[');
+			int startY = firstChar(line,']');
 			for(int x = startX + 1; x < startY; x++) {
 				block += line.charAt(x);
 			}
+			line = line.substring(0, startX) + line.substring(startY + 1, line.length());
+			blocks.add(block);
 		}
 		String[] words = line.split(" ");
 		if(words.length > 0) {
 			String word = words[0];
-			return execute(word, words, new IndexHolder(), block);
+			return execute(word, words, new IndexHolder(), blocks.toArray(new String[blocks.size()]));
 		}
 		return null;
+	}
+	
+	public int firstChar(String line, char y) {
+		for(int x = 0; x < line.length(); x++) {
+			if(line.charAt(x) == y) {
+				return x;
+			}
+		}
+		
+		return -1;
 	}
 	
 	public Keyword findKeyword(String name) {
@@ -87,18 +100,18 @@ public class Execution {
 		return keyword;
 	}
 	
-	public Object execute(String current, String[] words, IndexHolder index, String block) {
+	public Object execute(String current, String[] words, IndexHolder index, String[] blocks) {
 		//System.out.println("Executing on " + current + " with " + Arrays.asList(words) + " on " + index.index + " index");
 		Keyword key = findKeyword(current);
 		if(key != null) {
 			if(words.length - index.index - key.argsLength > 0) {
 				Object[] args = new Object[key.argsLength];
 				for(int x = 0; x < key.argsLength; x++) {
-					Object o = execute(words[++index.index], words, index, block);
+					Object o = execute(words[++index.index], words, index, blocks);
 					args[x] = o;
 				}
 				if(key.block) {
-					key.load(args, block);
+					key.load(args, blocks);
 				} else {
 					key.load(args);
 				}

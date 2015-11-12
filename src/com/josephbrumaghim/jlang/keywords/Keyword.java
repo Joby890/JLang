@@ -21,7 +21,7 @@ public abstract class Keyword {
 	
 	public abstract void load(Object[] args);
 	
-	public void load(Object[] args, String block) {
+	public void load(Object[] args, String[] blocks) {
 		load(args);
 	};
 	
