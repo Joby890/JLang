@@ -3,6 +3,7 @@ package com.josephbrumaghim.jlang;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -20,7 +21,9 @@ import com.josephbrumaghim.jlang.keywords.Mul;
 import com.josephbrumaghim.jlang.keywords.Num;
 import com.josephbrumaghim.jlang.keywords.Print;
 import com.josephbrumaghim.jlang.keywords.SetPointer;
+import com.josephbrumaghim.jlang.keywords.Sleep;
 import com.josephbrumaghim.jlang.keywords.Sub;
+import com.josephbrumaghim.jlang.keywords.Time;
 
 public class Execution {
 	
@@ -37,6 +40,8 @@ public class Execution {
 		keywords.put("if", new If(this));
 		keywords.put("num", new Num(this));
 		keywords.put("loop", new Loop(this));
+		keywords.put("time.time", new Time(this));
+		keywords.put("sleep", new Sleep(this));
 		
 		//Simple Math
 		keywords.put("add", new Add(this));
@@ -114,11 +119,19 @@ public class Execution {
 					Object o = execute(words[++index.index], words, index, blocks);
 					args[x] = o;
 				}
-				if(key.block) {
-					key.load(args, blocks);
-				} else {
-					key.load(args);
+				try {
+					if(key.block) {
+						key.load(args, blocks);
+					} else {
+						key.load(args);
+					}
+				} catch(Exception e) {
+					System.out.println("Error happened near " + words[index.index] + " on line " + Arrays.asList(words) + "at index " + index.index);
+					System.out.println("Current pointers durning execution");
+					System.out.println(pointers);
+					e.printStackTrace();
 				}
+
 				
 				return key.execute();
 				
@@ -189,7 +202,7 @@ public class Execution {
 						for(int l = 0; l < wordss.length; l++) {
 							String word = wordss[l];
 							if(word.trim().equals("null")) {
-								
+								newLine += word.trim() + " ";
 							} else if(word.equals("endmodule")) {
 								found = true;
 								break;

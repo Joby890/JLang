@@ -1,11 +1,8 @@
 package com.josephbrumaghim.jlang.keywords;
 
-import java.util.Arrays;
-
 import com.josephbrumaghim.jlang.Execution;
 
 public class Loop extends Keyword {
-	
 	
 	private If ifkey;
 	private String pointerX;
@@ -38,7 +35,6 @@ public class Loop extends Keyword {
 			result = ifkey.run(true);
 			ifkey.load(new Object[]{findExecution(pointerX).pointers.get(pointerX), modifer, findExecution(pointerY).pointers.get(pointerY)}, new String[]{block});
 		}
-		System.out.println(result);
 		return result;
 	}
 	

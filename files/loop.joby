@@ -1,5 +1,6 @@
 module testLoop [q t]
 	loop q < t [setPointer q up getPointer q]
+	print done
 endmodule
 
 module up [q]
@@ -8,3 +9,5 @@ module up [q]
 endmodule
 
 testLoop 0 7
+
+
