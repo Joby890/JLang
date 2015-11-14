@@ -2,6 +2,10 @@
 
 A programming like language called JLang
 
+Allows for modules to be written in joby or java
+
+File extention .joby
+
 ## Example Code
 setPointer name SimpleString
 
@@ -19,3 +23,4 @@ print getPointer arg2
 print getPointer arg3
 
 endmodule
+
