@@ -3,12 +3,12 @@ package com.josephbrumaghim.jlang;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import com.josephbrumaghim.jlang.keywords.Add;
 import com.josephbrumaghim.jlang.keywords.Div;
@@ -53,9 +53,30 @@ public class Execution {
 		this.prev = prev;
 	}
 	
-	
+	public String randomId() {
+		String result = "";
+		Random rnd = new Random();
+		String abc = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+		for(int x = 0; x < 8; x++) {
+			result += abc.charAt(rnd.nextInt(abc.length()));
+		}
+		return result;
+	}
 	
 	public Object executeLine(String line) {
+		while(firstChar(line, '"') >= 0 && secondChar(line, '"') >= 0) {
+			String foundString = "";
+			int start = firstChar(line, '"');
+			int end = secondChar(line, '"');
+			for(int x = start + 1; x < end; x++) {
+				foundString += line.charAt(x);
+			}
+			String id = "string_"+randomId();
+			pointers.put(id, foundString);
+			line = line.substring(0, start) + id  + line.substring(end + 1, line.length());
+		}
+		
+		
 		//Right now only one block per line.
 		List<String> blocks = new ArrayList<>();
 		while(firstChar(line,'[') >= 0 && firstChar(line,']') >= 0) {
@@ -83,6 +104,18 @@ public class Execution {
 			}
 		}
 		
+		return -1;
+	}
+	
+	public int secondChar(String line, char y) {
+		boolean found = false;
+		for(int x = 0; x < line.length(); x++) {
+			if(line.charAt(x) == y && found) {
+				return x;
+			} else if (line.charAt(x) == y){
+				found = true;
+			}
+		}
 		return -1;
 	}
 	

@@ -1,0 +1,9 @@
+print getPointer "Testing adding" 
+
+print add 0 5 
+print add 10000 5 
+print add 40128 6 
+
+print add getPointer "Stri" getPointer "ng" 
+
+print getPointer "Finished Testing" 

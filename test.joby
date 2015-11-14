@@ -18,6 +18,6 @@ print a
 endmodule
 
 
-module example if getPointer name getPointer x [] endmodule
+module example if getPointer name == getPointer x [] endmodule
 
 print sub 10 2
