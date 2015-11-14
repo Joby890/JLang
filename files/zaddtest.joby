@@ -6,4 +6,9 @@ print add 40128 6
 
 print add getPointer "Stri" getPointer "ng" 
 
+print add add getPointer "Number " add 0 5 getPointer " finished!"
+
+
 print getPointer "Finished Testing" 
+
+

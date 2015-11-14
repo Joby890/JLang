@@ -148,16 +148,22 @@ public class Execution {
 		if(key != null) {
 			if(words.length - index.index - key.argsLength > 0) {
 				Object[] args = new Object[key.argsLength];
-				for(int x = 0; x < key.argsLength; x++) {
-					Object o = execute(words[++index.index], words, index, blocks);
-					args[x] = o;
-				}
 				try {
+					
+					for(int x = 0; x < key.argsLength; x++) {
+						Object o = execute(words[++index.index], words, index, blocks);
+						args[x] = o;
+					}
+				
 					if(key.block) {
 						key.load(args, blocks);
 					} else {
 						key.load(args);
 					}
+				} catch(ArrayIndexOutOfBoundsException e) {
+					System.out.println("Array index out of bounds error");
+					System.out.println("While processing " + current + " keyword");
+					System.out.println("Current line: " + Arrays.asList(words));
 				} catch(Exception e) {
 					System.out.println("Error happened near " + words[index.index] + " on line " + Arrays.asList(words) + "at index " + index.index);
 					System.out.println("Current pointers durning execution");
