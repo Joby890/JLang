@@ -35,6 +35,10 @@ public class Execution {
 	
 	
 	public Execution(Execution prev) {
+		//Reserved pointers?
+		pointers.put("true", true);
+		pointers.put("false", false);
+		
 		keywords.put("getPointer", new GetPointer(this));
 		keywords.put("setPointer", new SetPointer(this));
 		keywords.put("print", new Print(this));

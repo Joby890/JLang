@@ -6,5 +6,5 @@ module time.past [x y]
 endmodule
 
 module time.isCurrent [t] 
-	if t == time.time [true] [false]
+	if t == time.time
 endmodule

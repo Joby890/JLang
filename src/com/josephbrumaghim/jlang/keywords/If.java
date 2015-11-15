@@ -26,7 +26,9 @@ public class If extends Keyword {
 		o1 = args[0];
 		modifier = (String) args[1];
 		o2 = args[2];
-		this.truthy = blocks[0];
+		if(blocks.length > 0) {
+			this.truthy = blocks[0];
+		}
 		if(blocks.length > 1) {
 			this.falsey = blocks[1];
 		}
@@ -98,12 +100,17 @@ public class If extends Keyword {
 	public Object run(boolean t) {
 		String[] words;
 		if(t) {
-			words = truthy.split(" ");
+			if(truthy != null) {
+				words = truthy.split(" ");
+			} else {
+				words = new String[]{"true"};
+			}
+			
 		} else {
 			if(falsey != null) {
 				words = falsey.split(" ");
 			} else {
-				words = new String[0];
+				words = new String[]{"false"};
 			}
 		}
 		if(words.length == 0) {

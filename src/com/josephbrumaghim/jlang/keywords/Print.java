@@ -5,6 +5,7 @@ import com.josephbrumaghim.jlang.Execution;
 public class Print extends Keyword {
 
 	private Object obj;
+	
 	public Print(Execution exec) {
 		super(exec, 1);
 	}
