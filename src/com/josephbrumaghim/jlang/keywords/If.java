@@ -125,7 +125,7 @@ public class If extends Keyword {
 		} else if(o instanceof Integer) {
 			return (Integer) o;
 		} else {
-			throw new IllegalArgumentException("Unknow type to conver to Integer of " + o.getClass());
+			throw new IllegalArgumentException("Unknow type to conver to Integer of " + (o == null ? o : o.getClass()));
 		}
 	}
 

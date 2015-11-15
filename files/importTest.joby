@@ -1,0 +1,5 @@
+print "Testing imports"
+
+print time.isCurrent time.time
+import time
+print time.isCurrent time.time

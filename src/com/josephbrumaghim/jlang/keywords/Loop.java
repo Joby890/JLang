@@ -30,7 +30,6 @@ public class Loop extends Keyword {
 	public Object execute() {
 		Object result = null;
 		ifkey.load(new Object[]{findExecution(pointerX).pointers.get(pointerX), modifer, findExecution(pointerY).pointers.get(pointerY)}, new String[]{block});
-		
 		while(ifkey.check()) {
 			result = ifkey.run(true);
 			ifkey.load(new Object[]{findExecution(pointerX).pointers.get(pointerX), modifer, findExecution(pointerY).pointers.get(pointerY)}, new String[]{block});

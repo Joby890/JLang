@@ -1,0 +1,10 @@
+module time.past [x y]
+	if y == null [setPointer "y" x setPointer "x" time.time]
+	print x
+	print y
+	sub x y
+endmodule
+
+module time.isCurrent [t] 
+	if t == time.time [true] [false]
+endmodule

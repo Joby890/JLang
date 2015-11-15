@@ -1,0 +1,17 @@
+print "Testing adding" 
+
+print add 0 5 
+print add 10000 5 
+print add 40128 6 
+
+print add "Stri" "ng" 
+
+print add add "Number " add 0 5 " finished!"
+setPointer "x" 5
+print x
+setPointer "x" add x 5
+print x
+print "Finished Testing" 
+
+setPointer "x" 0
+setPointer "y" 50

@@ -14,6 +14,7 @@ import com.josephbrumaghim.jlang.keywords.Add;
 import com.josephbrumaghim.jlang.keywords.Div;
 import com.josephbrumaghim.jlang.keywords.GetPointer;
 import com.josephbrumaghim.jlang.keywords.If;
+import com.josephbrumaghim.jlang.keywords.Import;
 import com.josephbrumaghim.jlang.keywords.Keyword;
 import com.josephbrumaghim.jlang.keywords.KeywordBuilder;
 import com.josephbrumaghim.jlang.keywords.Loop;
@@ -42,6 +43,7 @@ public class Execution {
 		keywords.put("loop", new Loop(this));
 		keywords.put("time.time", new Time(this));
 		keywords.put("sleep", new Sleep(this));
+		keywords.put("import", new Import(this));
 		
 		//Simple Math
 		keywords.put("add", new Add(this));
@@ -147,39 +149,41 @@ public class Execution {
 		Keyword key = findKeyword(current);
 		if(key != null) {
 			if(words.length - index.index - key.argsLength > 0) {
-				Object[] args = new Object[key.argsLength];
 				try {
+					Object[] args = new Object[key.argsLength];
 					
 					for(int x = 0; x < key.argsLength; x++) {
 						Object o = execute(words[++index.index], words, index, blocks);
 						args[x] = o;
 					}
-				
 					if(key.block) {
 						key.load(args, blocks);
 					} else {
 						key.load(args);
 					}
+					return key.execute();
 				} catch(ArrayIndexOutOfBoundsException e) {
 					System.out.println("Array index out of bounds error");
 					System.out.println("While processing " + current + " keyword");
 					System.out.println("Current line: " + Arrays.asList(words));
+					e.printStackTrace();
+					return null;
 				} catch(Exception e) {
 					System.out.println("Error happened near " + words[index.index] + " on line " + Arrays.asList(words) + "at index " + index.index);
 					System.out.println("Current pointers durning execution");
 					System.out.println(pointers);
 					e.printStackTrace();
-				}
-
-				
-				return key.execute();
-				
-				
+					return null;
+				}	
 			} else {
 				System.out.println("Error not enough args in command");
 				return null;
 			}
 		} else {
+			Execution e = findExecution(current);
+			if(e.pointers.containsKey(current)) {
+				return e.pointers.get(current);
+			}
 			return current;
 		}
 	}
@@ -277,6 +281,18 @@ public class Execution {
 		for(String line : lines) {
 			executeLine(line);
 		}
+	}
+	
+	public Execution findExecution(String name) {
+		Execution current = this;
+		while(current != null) {
+			if(current.pointers.containsKey(name)) {
+				return current;
+			} else {
+				current = current.prev;
+			}
+		}
+		return this;
 	}
 }
 

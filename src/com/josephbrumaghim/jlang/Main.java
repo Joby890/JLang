@@ -8,18 +8,16 @@ public class Main {
 	private static final boolean DEBUG = false;
 	private static final File dir = new File("./files");
 	
-	private FileLoader loader;
 	private Execution exec;
 	
 	
 	public Main() {
-		loader = new FileLoader();
 		exec = new Execution(null);
 	}
 	
 	public void run(File dir, File main) {
 		if(dir.isDirectory()) {
-			List<File> files = loader.getJobyFiles(dir);
+			List<File> files = FileLoader.getJobyFiles(dir);
 			for(File f : files) {
 				exec.executeFile(f);
 			}

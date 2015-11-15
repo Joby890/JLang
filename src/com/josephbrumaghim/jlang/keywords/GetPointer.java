@@ -17,19 +17,9 @@ public class GetPointer extends Keyword {
 
 	@Override
 	public Object execute() {
-		return findExecution(name).pointers.get(name);
+		return exec.findExecution(name).pointers.get(name);
 	}
 	
 	
-	public Execution findExecution(String name) {
-		Execution current = exec;
-		while(current != null) {
-			if(current.pointers.containsKey(name)) {
-				return current;
-			} else {
-				current = current.prev;
-			}
-		}
-		return exec;
-	}
+
 }

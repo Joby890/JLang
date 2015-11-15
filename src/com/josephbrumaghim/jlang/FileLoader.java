@@ -6,7 +6,9 @@ import java.util.List;
 
 public class FileLoader {
 	
-	public List<File> getJobyFiles(File dir) {
+	
+	
+	public static List<File> getJobyFiles(File dir) {
 		List<File> files = new ArrayList<>();
 		for(File f : dir.listFiles()) {
 			if(f.isDirectory()) {
@@ -22,7 +24,7 @@ public class FileLoader {
 	}
 	
 
-	public File loadFile(String name) {
+	public static File loadFile(String name) {
 		return new File(name + ".joby");
 	}
 	
