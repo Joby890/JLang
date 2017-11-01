@@ -1,5 +1,22 @@
 print "Testing imports"
 
+
+print add "Active " time.isCurrent
 print time.isCurrent time.time
 import time
-print time.isCurrent time.time
+print add "Active " time.isCurrent time.time
+
+
+setPointer "x" mul add 4 4 4
+
+
+print x
+
+
+
+module time.date
+print num
+endmodule
+
+
+time.date 5 1 5

@@ -25,6 +25,7 @@ import com.josephbrumaghim.jlang.keywords.SetPointer;
 import com.josephbrumaghim.jlang.keywords.Sleep;
 import com.josephbrumaghim.jlang.keywords.Sub;
 import com.josephbrumaghim.jlang.keywords.Time;
+import com.josephbrumaghim.jlang.keywords.TimeDate;
 
 public class Execution {
 	
@@ -46,6 +47,7 @@ public class Execution {
 		keywords.put("num", new Num(this));
 		keywords.put("loop", new Loop(this));
 		keywords.put("time.time", new Time(this));
+//		keywords.put("time.data", new TimeDate(this));
 		keywords.put("sleep", new Sleep(this));
 		keywords.put("import", new Import(this));
 		
@@ -180,7 +182,7 @@ public class Execution {
 					return null;
 				}	
 			} else {
-				System.out.println("Error not enough args in command");
+				System.out.println("Error not enough args in command words:" + words.length + " index: " + index.index + " key.argsLenth: " + key.argsLength);
 				return null;
 			}
 		} else {
